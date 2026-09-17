@@ -59,8 +59,8 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
-</html>
-2. src/types.ts
+</html> 
+src/types.ts
 code
 TypeScript
 export type ServiceCategory = 
@@ -84,7 +84,6 @@ export interface LegalService {
   popular?: boolean;
   highlightBadge?: string;
 }
-
 export interface AreaInfo {
   name: string;
   subRegistrarOffice: string;
@@ -118,7 +117,7 @@ export interface ConsultationFormData {
   urgency: 'Normal' | 'Urgent' | 'Immediate Registration Slot';
   message: string;
 }
-3. src/App.tsx
+src/App.tsx
 code
 TypeScript
 import React, { useState } from 'react';
@@ -137,7 +136,6 @@ import { DocumentChecklistModal } from './components/DocumentChecklistModal';
 import { FloatingContactBar } from './components/FloatingContactBar';
 import { LegalService } from './types';
 import { ALL_SERVICES } from './data/servicesData';
-
 export default function App() {
   const [selectedChecklistService, setSelectedChecklistService] = useState<LegalService | null>(null);
   const [inquiryServiceId, setInquiryServiceId] = useState<string>('sale-deed');
@@ -207,12 +205,11 @@ export default function App() {
     </div>
   );
 }
-4. src/components/Navbar.tsx
+src/components/Navbar.tsx
 code
 TypeScript
 import React, { useState } from 'react';
 import { Phone, MessageSquare, MapPin, Scale, Menu, X, Clock, Award } from 'lucide-react';
-
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -347,7 +344,7 @@ export const Navbar: React.FC = () => {
     </header>
   );
 };
-5. src/components/Hero.tsx
+src/components/Hero.tsx
 code
 TypeScript
 import React from 'react';
@@ -517,7 +514,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenChecklistModal }) => {
     </section>
   );
 };
-6. src/components/OfficeLocation.tsx
+src/components/OfficeLocation.tsx
 code
 TypeScript
 import React from 'react';
@@ -645,7 +642,7 @@ export const OfficeLocation: React.FC = () => {
     </section>
   );
 };
-7. src/components/StampDutyCalculator.tsx
+src/components/StampDutyCalculator.tsx
 code
 TypeScript
 import React, { useState } from 'react';
@@ -788,7 +785,7 @@ export const StampDutyCalculator: React.FC = () => {
     </section>
   );
 };
-8. src/components/FloatingContactBar.tsx
+src/components/FloatingContactBar.tsx
 code
 TypeScript
 import React from 'react';
