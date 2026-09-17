@@ -1,0 +1,86 @@
+import React, { useState } from 'react';
+import { Navbar } from './components/Navbar';
+import { BarCouncilNotice } from './components/BarCouncilNotice';
+import { Hero } from './components/Hero';
+import { ServicesSection } from './components/ServicesSection';
+import { StampDutyCalculator } from './components/StampDutyCalculator';
+import { ClientSegments } from './components/ClientSegments';
+import { AreasServed } from './components/AreasServed';
+import { LegalInquiryForm } from './components/LegalInquiryForm';
+import { OfficeLocation } from './components/OfficeLocation';
+import { FAQSection } from './components/FAQSection';
+import { Footer } from './components/Footer';
+import { DocumentChecklistModal } from './components/DocumentChecklistModal';
+import { FloatingContactBar } from './components/FloatingContactBar';
+import { LegalService } from './types';
+import { ALL_SERVICES } from './data/servicesData';
+
+export default function App() {
+  const [selectedChecklistService, setSelectedChecklistService] = useState<LegalService | null>(null);
+  const [inquiryServiceId, setInquiryServiceId] = useState<string>('sale-deed');
+  const [inquiryLocality, setInquiryLocality] = useState<string>('Shipra Suncity, Indirapuram');
+  const [inquiryClientType, setInquiryClientType] = useState<'Individual' | 'Builder' | 'Bank' | 'Corporate'>('Individual');
+
+  const handleOpenChecklistModal = (serviceId?: string) => {
+    const srv = ALL_SERVICES.find((s) => s.id === serviceId) || ALL_SERVICES[0];
+    setSelectedChecklistService(srv);
+  };
+
+  const handleSelectServiceForChecklist = (service: LegalService) => {
+    setSelectedChecklistService(service);
+  };
+
+  const handleSelectServiceForInquiry = (serviceId: string) => {
+    setInquiryServiceId(serviceId);
+    const element = document.getElementById('inquiry');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleSelectLocality = (localityName: string) => {
+    setInquiryLocality(localityName);
+    const element = document.getElementById('inquiry');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleSelectClientType = (type: 'Individual' | 'Builder' | 'Bank' | 'Corporate') => {
+    setInquiryClientType(type);
+    const element = document.getElementById('inquiry');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+      <BarCouncilNotice />
+      <Navbar />
+      <main className="flex-1">
+        <Hero onOpenChecklistModal={handleOpenChecklistModal} />
+        <ServicesSection
+          onSelectServiceForChecklist={handleSelectServiceForChecklist}
+          onSelectServiceForInquiry={handleSelectServiceForInquiry}
+        />
+        <StampDutyCalculator />
+        <ClientSegments onSelectClientType={handleSelectClientType} />
+        <AreasServed onSelectLocality={handleSelectLocality} />
+        <LegalInquiryForm
+          initialServiceId={inquiryServiceId}
+          initialLocality={inquiryLocality}
+          initialClientType={inquiryClientType}
+        />
+        <OfficeLocation />
+        <FAQSection />
+      </main>
+      <Footer />
+      <DocumentChecklistModal
+        service={selectedChecklistService}
+        onClose={() => setSelectedChecklistService(null)}
+      />
+      <FloatingContactBar />
+    </div>
+  );
+}
